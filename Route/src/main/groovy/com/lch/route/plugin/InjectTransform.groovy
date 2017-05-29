@@ -64,6 +64,8 @@ public class InjectTransform extends Transform {
 
                 String jarName = jarInput.file.name;
                 String jar_absolutePath = jarInput.file.absolutePath;
+                Logg.i("#####jar:" + jar_absolutePath);
+
                 /** 重名名输出文件,因为可能同名,会覆盖*/
                 def hexName = DigestUtils.md5Hex(jar_absolutePath).substring(0, 8);
                 if (jarName.endsWith(".jar")) {
@@ -72,7 +74,14 @@ public class InjectTransform extends Transform {
                 /** 获得输出文件*/
                 File dest = outputProvider.getContentLocation(jarName + "_" + hexName, jarInput.contentTypes, jarInput.scopes, Format.JAR);
 
-                def modifiedJar = modifyJarFile(jarInput.file, context.getTemporaryDir());
+                def modifiedJar = null;
+
+                if (isNeedModifyJar(jarInput.file)) {
+                    modifiedJar = modifyJarFile(jarInput.file, context.getTemporaryDir());
+                } else {
+                    Logg.e("===============exclude jar:" + jar_absolutePath)
+
+                }
 
 
                 if (modifiedJar == null) {
@@ -91,6 +100,9 @@ public class InjectTransform extends Transform {
 
                 File dest = outputProvider.getContentLocation(directoryInput.name, directoryInput.contentTypes, directoryInput.scopes, Format.DIRECTORY);
                 File dir = directoryInput.file
+                Logg.i("###dir:" + dir.absolutePath);
+
+
                 if (dir) {
 
                     HashMap<String, File> modifyMap = new HashMap<>();
@@ -130,6 +142,22 @@ public class InjectTransform extends Transform {
 
 
         }
+    }
+
+    private static boolean isNeedModifyJar(File jar) {
+
+        List<String> excludeJarName = Util.project.route.excludeJarName;
+
+        for (String value : excludeJarName) {
+            boolean isContain = jar.absolutePath.contains(value);
+
+            if (isContain) {
+                return false;
+            }
+        }
+
+
+        return true;
     }
 
 

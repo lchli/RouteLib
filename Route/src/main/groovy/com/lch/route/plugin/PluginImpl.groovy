@@ -18,6 +18,7 @@ class PluginImpl implements Plugin<Project> {
         if (!(android instanceof AppExtension)) {
             throw new IllegalStateException("'android-application' plugin required.")
         }
+        project.extensions.create('route', PluginExtension)
 
 
         Util.setProject(project);

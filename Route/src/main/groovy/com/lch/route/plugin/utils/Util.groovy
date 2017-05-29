@@ -6,11 +6,13 @@ import org.gradle.api.Project
 public class Util {
 
 
-    private static Project project;
+    public static Project project;
 
     public static void setProject(Project project) {
         Util.@project = project
     }
+
+
 
 
     public static void initTargetClasses(Map<String, Object> modifyMatchMaps) {
