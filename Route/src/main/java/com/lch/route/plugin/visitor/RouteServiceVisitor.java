@@ -61,11 +61,10 @@ public class RouteServiceVisitor extends ClassVisitor implements Opcodes {
         public void visit(String name, Object value) {
 
             if (desc.equals("Lcom/lch/route/RouteServiceAnnotation;") && name.equals("serviceInterface")) {
-                Logg.e("visitA=======================:" + name + "#" + value + "#" + desc+"#"+classname);//serviceInterface,Lbruce/com/testhibeaver/test/HomeService;
+                Logg.e("visitA=======================:" + name + "#" + value + "#" + desc + "#" + classname);//serviceInterface,Lbruce/com/testhibeaver/test/HomeService;
 
-                org.objectweb.asm.Type serviceInterface = (org.objectweb.asm.Type) value;
 
-                sv.put(serviceInterface.getClassName(), classname.replaceAll("/", "."));
+                sv.put(value.toString(), classname.replaceAll("/", "."));
             }
 
             super.visit(name, value);

@@ -43,7 +43,7 @@ public class Router_Dump implements Opcodes {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "getService", "(Ljava/lang/Class;)Ljava/lang/Object;", "<T:Ljava/lang/Object;>(Ljava/lang/Class<TT;>;)TT;", null);
+            mv = cw.visitMethod(ACC_PRIVATE + ACC_STATIC, "getService", "(Ljava/lang/String;)Ljava/lang/Object;", "<T:Ljava/lang/Object;>(Ljava/lang/String;)TT;", null);
             mv.visitCode();
             Label l0 = new Label();
             Label l1 = new Label();
@@ -54,7 +54,6 @@ public class Router_Dump implements Opcodes {
             mv.visitLineNumber(19, l3);
             mv.visitFieldInsn(GETSTATIC, "com/lch/route/Route_", "SV", "Ljava/util/Map;");
             mv.visitVarInsn(ALOAD, 0);
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Class", "getName", "()Ljava/lang/String;", false);
             mv.visitMethodInsn(INVOKEINTERFACE, "java/util/Map", "get", "(Ljava/lang/Object;)Ljava/lang/Object;", true);
             mv.visitTypeInsn(CHECKCAST, "java/lang/String");
             mv.visitVarInsn(ASTORE, 1);
@@ -67,7 +66,7 @@ public class Router_Dump implements Opcodes {
             mv.visitInsn(ARETURN);
             mv.visitLabel(l2);
             mv.visitLineNumber(24, l2);
-            mv.visitFrame(Opcodes.F_FULL, 2, new Object[]{"java/lang/Class", "java/lang/String"}, 1, new Object[]{"java/lang/Exception"});
+            mv.visitFrame(Opcodes.F_FULL, 2, new Object[]{"java/lang/String", "java/lang/String"}, 1, new Object[]{"java/lang/Exception"});
             mv.visitVarInsn(ASTORE, 2);
             Label l4 = new Label();
             mv.visitLabel(l4);
@@ -82,7 +81,7 @@ public class Router_Dump implements Opcodes {
             Label l6 = new Label();
             mv.visitLabel(l6);
             mv.visitLocalVariable("e", "Ljava/lang/Exception;", null, l4, l5, 2);
-            mv.visitLocalVariable("cls", "Ljava/lang/Class;", "Ljava/lang/Class<TT;>;", l3, l6, 0);
+            mv.visitLocalVariable("svName", "Ljava/lang/String;", null, l3, l6, 0);
             mv.visitLocalVariable("impl", "Ljava/lang/String;", null, l0, l6, 1);
             mv.visitMaxs(2, 3);
             mv.visitEnd();
